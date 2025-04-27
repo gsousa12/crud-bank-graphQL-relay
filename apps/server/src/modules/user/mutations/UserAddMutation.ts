@@ -2,7 +2,7 @@ import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 
 import { userField } from "../UserFields";
-import { createUserService } from "../service/createUserService";
+import { createUserService } from "../service/CreateUserService";
 
 import { CreateUserDTO } from "../dtos/CreateUserDTO";
 

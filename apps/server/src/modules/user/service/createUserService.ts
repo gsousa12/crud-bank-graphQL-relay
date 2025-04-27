@@ -1,8 +1,9 @@
 import { User } from "../UserModel";
 
-import { PasswordAdapter } from "../adapters/PasswordAdapter";
-import { validateUserInput } from "../validators/userInputValidator";
+import { PasswordAdapter } from "../../_shared/adapters/PasswordAdapter";
+import { validateUserInput } from "../validators/UserInputValidator";
 import { CreateUserDTO } from "../dtos/CreateUserDTO";
+import { Account } from "../../account/AccountModel";
 
 /* Account terá um balance inicial de 100 reais*/
 const INITIAL_BALANCE = 100_00;
@@ -27,10 +28,10 @@ export async function createUserService(input: CreateUserDTO) {
 
   /* Criação do modulo de conta */
 
-  // await new Account({
-  //   userId: user._id,
-  //   balance: INITIAL_BALANCE,
-  // }).save();
+  await new Account({
+    userId: user._id,
+    balance: INITIAL_BALANCE,
+  }).save();
 
   return user;
 }
