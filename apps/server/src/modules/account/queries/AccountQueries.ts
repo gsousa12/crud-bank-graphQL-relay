@@ -8,8 +8,8 @@ export const accountQueries = {
     args: {
       id: { type: new GraphQLNonNull(GraphQLString) },
     },
-    resolve: async (_root, args, context) => {
-      return AccountLoader.load(context, args.id);
+    resolve: async (_root, input, context) => {
+      return AccountLoader.load(context, input.id);
     },
     description: "Fetch an account by UUID",
   },
