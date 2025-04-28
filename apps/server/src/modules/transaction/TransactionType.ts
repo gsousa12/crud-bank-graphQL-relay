@@ -35,6 +35,11 @@ const TransactionType = new GraphQLObjectType<ITransaction>({
       resolve: (transaction) => transaction.status,
       description: "Transaction status",
     },
+    reason: {
+      type: GraphQLString,
+      resolve: (transaction) => transaction.reason,
+      description: "Reason that explains why a transaction was rejected",
+    },
     senderAccountId: {
       type: new GraphQLNonNull(GraphQLString),
       resolve: (transaction) => transaction.senderAccountId,
@@ -44,6 +49,11 @@ const TransactionType = new GraphQLObjectType<ITransaction>({
       type: new GraphQLNonNull(GraphQLString),
       resolve: (transaction) => transaction.receiverAccountId,
       description: "Receiver account UUID",
+    },
+    idempotencyKey: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (transaction) => transaction.idempotencyKey,
+      description: "Idempotency key of a transaction",
     },
     createdAt: {
       type: GraphQLString,
