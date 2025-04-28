@@ -4,6 +4,7 @@ import { createTransactionService } from "../service/CreateTransactionService.ts
 import { transactionField } from "../TransactionFields.ts";
 import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO.ts";
 import { Context } from "koa";
+import { getAuthorization } from "../../_shared/utils/GetAuthorization.ts";
 
 const mutation = mutationWithClientMutationId({
   name: "CreateTransaction",
@@ -11,14 +12,13 @@ const mutation = mutationWithClientMutationId({
     senderAccountId: { type: new GraphQLNonNull(GraphQLString) },
     receiverAccountId: { type: new GraphQLNonNull(GraphQLString) },
     amount: { type: new GraphQLNonNull(GraphQLInt) },
+    idempotencyKey: { type: new GraphQLNonNull(GraphQLString) },
   },
   mutateAndGetPayload: async (
     input: CreateTransactionDTO,
     context: Context
   ) => {
-    if (!context.user) {
-      throw new Error("Unauthorized: You must be logged in.");
-    }
+    getAuthorization(context);
     const transaction = await createTransactionService(input);
     return { transaction: transaction.id };
   },

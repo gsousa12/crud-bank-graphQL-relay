@@ -26,6 +26,10 @@ const TransactionSchema = new mongoose.Schema<ITransaction>(
       required: true,
       description: "Transaction status",
     },
+    reason: {
+      type: String || null,
+      description: "Reason that explains why a transaction was rejected",
+    },
     senderAccountId: {
       type: String,
       required: true,
@@ -35,6 +39,11 @@ const TransactionSchema = new mongoose.Schema<ITransaction>(
       type: String,
       required: true,
       description: "Receiver account UUID",
+    },
+    idempotencyKey: {
+      type: String,
+      required: true,
+      description: "Idempotency key of a transaction",
     },
   },
   {
@@ -48,8 +57,10 @@ export type ITransaction = {
   id: string;
   amount: number;
   status: string;
+  reason: string | null;
   senderAccountId: string;
   receiverAccountId: string;
+  idempotencyKey: string;
   createdAt: Date;
   updatedAt: Date;
 } & Document;
