@@ -1,6 +1,7 @@
 import { GraphQLObjectType } from "graphql";
 
-import { AccountQueries } from "../modules/account/queries/AccountQueries";
+import { accountQueries } from "../modules/account/queries/AccountQueries";
+import { transactionQueries } from "../modules/transaction/queries/TransactionQueries";
 
 // import { messageConnectionField } from '../modules/message/messageFields';
 
@@ -10,10 +11,10 @@ import { AccountQueries } from "../modules/account/queries/AccountQueries";
 // 		...messageConnectionField('messages'),
 // 	}),
 // });
-
 export const QueryType = new GraphQLObjectType({
   name: "Query",
   fields: () => ({
-    ...AccountQueries,
+    ...accountQueries,
+    ...transactionQueries,
   }),
 });

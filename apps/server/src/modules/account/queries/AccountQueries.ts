@@ -2,7 +2,7 @@ import { GraphQLNonNull, GraphQLString } from "graphql";
 import { AccountType } from "../AccountType";
 import { AccountLoader } from "../AccountLoader";
 
-export const AccountQueries = {
+export const accountQueries = {
   accountById: {
     type: AccountType,
     args: {
