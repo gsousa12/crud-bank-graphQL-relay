@@ -1,9 +1,15 @@
 import { Account } from "../../account/AccountModel";
-import { Transaction, TransactionStatus } from "../TransactionModel";
+import {
+  ITransaction,
+  Transaction,
+  TransactionStatus,
+} from "../TransactionModel";
 import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO";
 import { validateTransactionInput } from "../validator/TransactionValidator";
 
-export async function createTransactionService(input: CreateTransactionDTO) {
+export async function createTransactionService(
+  input: CreateTransactionDTO
+): Promise<ITransaction> {
   validateTransactionInput(input);
 
   /* 

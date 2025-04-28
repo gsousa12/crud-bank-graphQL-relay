@@ -1,5 +1,5 @@
-import { TransactionAddMutation } from "./TransactionAddMutation";
+import { CreateTransactionMutation } from "./CreateTransactionMutation";
 
 export const transactionMutations = {
-  TransactionAdd: TransactionAddMutation,
+  CreateTransaction: CreateTransactionMutation,
 };

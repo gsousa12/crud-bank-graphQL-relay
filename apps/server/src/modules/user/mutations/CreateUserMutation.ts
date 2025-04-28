@@ -1,21 +1,21 @@
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 
-import { userField } from "../UserFields";
 import { createUserService } from "../service/CreateUserService";
 
 import { CreateUserDTO } from "../dtos/CreateUserDTO";
+import { userField } from "../userFields";
 
 const mutation = mutationWithClientMutationId({
-  name: "UserAdd",
+  name: "CreateUser",
   inputFields: {
     fullName: { type: new GraphQLNonNull(GraphQLString) },
     email: { type: new GraphQLNonNull(GraphQLString) },
     taxId: { type: new GraphQLNonNull(GraphQLString) },
     password: { type: new GraphQLNonNull(GraphQLString) },
   },
-  mutateAndGetPayload: async (args: CreateUserDTO) => {
-    const user = await createUserService(args);
+  mutateAndGetPayload: async (input: CreateUserDTO) => {
+    const user = await createUserService(input);
     return { user: user._id };
   },
   outputFields: {
@@ -23,6 +23,6 @@ const mutation = mutationWithClientMutationId({
   },
 });
 
-export const UserAddMutation = {
+export const CreateUserMutation = {
   ...mutation,
 };
