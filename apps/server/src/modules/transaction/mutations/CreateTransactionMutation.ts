@@ -19,7 +19,7 @@ const mutation = mutationWithClientMutationId({
     context: Context
   ) => {
     getAuthorization(context);
-    const transaction = await createTransactionService(input);
+    const transaction = await createTransactionService(input, context.user);
     return { transaction: transaction.id };
   },
   outputFields: {

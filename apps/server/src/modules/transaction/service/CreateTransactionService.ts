@@ -1,14 +1,21 @@
 import {
   getTransactionByIdempotencyKey,
   setTransactionIdempotencyKey,
-} from "../../_shared/helpers/idempotencyHelper";
+} from "../../_shared/helpers/IdempotencyHelper";
+import { checkTokenBucket } from "../../_shared/utils/CheckTokenBucket";
 import { Account } from "../../account/AccountModel";
+import { IUser } from "../../user/UserModel";
 import { Transaction, TransactionStatus } from "../TransactionModel";
 import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO";
 import { validateTransactionInput } from "../validator/TransactionValidator";
 
-export async function createTransactionService(input: CreateTransactionDTO) {
+export async function createTransactionService(
+  input: CreateTransactionDTO,
+  user: IUser
+) {
   validateTransactionInput(input);
+
+  await checkTokenBucket(user._id.toString());
 
   const cachedTransactionResult = await getTransactionByIdempotencyKey(
     input.idempotencyKey

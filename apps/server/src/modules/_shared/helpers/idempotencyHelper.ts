@@ -1,10 +1,11 @@
 import { config } from "../../../config";
 import { RedisAdapter } from "../adapters/RedisAdapter";
 
+const IDEMPOTENCY_KEY_PREFIX = "Idempotency_Key[Transaction]";
 const IDEMPOTENCY_TTL_SECONDS = config.IDEMPOTENCY_TTL_SECONDS;
 
 const getIdempotencyKey = (idempotencyKey: string) =>
-  `idempotency:transaction:${idempotencyKey}`;
+  `${IDEMPOTENCY_KEY_PREFIX}:${idempotencyKey}`;
 
 export async function getTransactionByIdempotencyKey<T = any>(
   idempotencyKey: string
