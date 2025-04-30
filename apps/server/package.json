@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"@entria/graphql-mongo-helpers": "^1.1.2",
+		"@types/luxon": "^3.3.0",
 		"bcryptjs": "^3.0.2",
 		"dataloader": "^2.2.2",
 		"dotenv-safe": "^8.2.0",
@@ -25,6 +26,7 @@
 		"koa-graphql": "^0.12.0",
 		"koa-logger": "^3.2.1",
 		"koa-router": "^12.0.1",
+		"luxon": "^3.3.0",
 		"mongoose": "^7.0.3",
 		"redis": "^4.7.0",
 		"ws": "^8.14.2",
