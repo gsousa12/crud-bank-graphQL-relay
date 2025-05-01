@@ -8,6 +8,7 @@ import { IUser } from "../../user/UserModel";
 import { Transaction, TransactionStatus } from "../TransactionModel";
 import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO";
 import { validateTransactionInput } from "../validator/TransactionValidator";
+import { GraphQLError } from "graphql";
 
 export async function createTransactionService(
   input: CreateTransactionDTO,
@@ -28,10 +29,10 @@ export async function createTransactionService(
   }
 
   const sender = await Account.findOne({ id: input.senderAccountId });
-  if (!sender) throw new Error("Sender account not found.");
+  if (!sender) throw new GraphQLError("Sender account not found.");
 
   const receiver = await Account.findOne({ id: input.receiverAccountId });
-  if (!receiver) throw new Error("Receiver account not found.");
+  if (!receiver) throw new GraphQLError("Receiver account not found.");
 
   if (sender.balance < input.amount) {
     await new Transaction({
@@ -42,7 +43,7 @@ export async function createTransactionService(
       receiverAccountId: input.receiverAccountId,
       idempotencyKey: input.idempotencyKey,
     }).save();
-    throw new Error("Insufficient balance to perform a transaction.");
+    throw new GraphQLError("Insufficient balance to perform a transaction.");
   }
 
   sender.balance -= input.amount;

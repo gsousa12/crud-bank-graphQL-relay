@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO";
+import { GraphQLError } from "graphql";
 
 /* Regex que valida se a chave de transferencia é válida (Uuid do Crypto) */
 const uuidRegex =
@@ -28,7 +29,7 @@ export function validateTransactionInput(input: CreateTransactionDTO) {
     transactionSchema.parse(input);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      throw new Error(error.errors.map((e) => e.message).join("; "));
+      throw new GraphQLError(error.errors.map((e) => e.message).join("; "));
     }
     throw error;
   }

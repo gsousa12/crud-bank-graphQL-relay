@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CreateUserDTO } from "../dtos/CreateUserDTO";
+import { GraphQLError } from "graphql";
 
 const userSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -18,7 +19,7 @@ export function validateUserInput(input: CreateUserDTO) {
     userSchema.parse(input);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      throw new Error(error.errors.map((e) => e.message).join("; "));
+      throw new GraphQLError(error.errors.map((e) => e.message).join("; "));
     }
     throw error;
   }
