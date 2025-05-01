@@ -5,13 +5,13 @@ import {
 import { checkTokenBucket } from "../../_shared/utils/CheckTokenBucket";
 import { Account } from "../../account/AccountModel";
 import { IUser } from "../../user/UserModel";
+import { CreateTransactionType } from "../mutations/CreateTransactionMutation";
 import { Transaction, TransactionStatus } from "../TransactionModel";
-import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO";
 import { validateTransactionInput } from "../validator/TransactionValidator";
 import { GraphQLError } from "graphql";
 
 export async function createTransactionService(
-  input: CreateTransactionDTO,
+  input: CreateTransactionType,
   user: IUser
 ) {
   validateTransactionInput(input);

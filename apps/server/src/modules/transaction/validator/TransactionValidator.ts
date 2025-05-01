@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { CreateTransactionDTO } from "../dtos/CreateTransactionDTO";
 import { GraphQLError } from "graphql";
+import { CreateTransactionType } from "../mutations/CreateTransactionMutation";
 
 /* Regex que valida se a chave de transferencia é válida (Uuid do Crypto) */
 const uuidRegex =
@@ -24,7 +24,7 @@ const transactionSchema = z
     path: ["receiverAccountId"],
   });
 
-export function validateTransactionInput(input: CreateTransactionDTO) {
+export function validateTransactionInput(input: CreateTransactionType) {
   try {
     transactionSchema.parse(input);
   } catch (error) {

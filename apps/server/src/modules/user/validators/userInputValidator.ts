@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { CreateUserDTO } from "../dtos/CreateUserDTO";
 import { GraphQLError } from "graphql";
+import { CreateUserType } from "../mutations/CreateUserMutation";
 
 const userSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
@@ -14,7 +14,7 @@ const userSchema = z.object({
   password: z.string().min(6, "Password must have at least 6 characters"),
 });
 
-export function validateUserInput(input: CreateUserDTO) {
+export function validateUserInput(input: CreateUserType) {
   try {
     userSchema.parse(input);
   } catch (error) {

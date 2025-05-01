@@ -1,6 +1,6 @@
 import { JwtAdapter, JwtPayload } from "../../_shared/adapters/JwtAdapter";
 import { PasswordAdapter } from "../../_shared/adapters/PasswordAdapter";
-import { LoginDTO } from "../dtos/LoginDTO";
+import { LoginRequestType } from "../mutations/UserLoginMutation";
 import { IUser, User } from "../UserModel";
 import { validateLoginInput } from "../validators/loginInputValidator";
 import { GraphQLError } from "graphql";
@@ -13,7 +13,7 @@ export type LoginResult = {
 export async function loginService({
   email,
   password,
-}: LoginDTO): Promise<LoginResult> {
+}: LoginRequestType): Promise<LoginResult> {
   validateLoginInput({ email, password });
   const user = await User.findOne({ email });
   if (!user) throw new GraphQLError("Invalid credentials.");

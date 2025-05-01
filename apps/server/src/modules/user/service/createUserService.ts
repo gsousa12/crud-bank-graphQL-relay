@@ -1,14 +1,13 @@
 import { User } from "../UserModel";
-
 import { PasswordAdapter } from "../../_shared/adapters/PasswordAdapter";
 import { validateUserInput } from "../validators/UserInputValidator";
-import { CreateUserDTO } from "../dtos/CreateUserDTO";
 import { Account } from "../../account/AccountModel";
+import { CreateUserType } from "../mutations/CreateUserMutation";
 
 /* Account terá um balance inicial de 100 reais*/
 const INITIAL_BALANCE = 100_00;
 
-export async function createUserService(input: CreateUserDTO) {
+export async function createUserService(input: CreateUserType) {
   validateUserInput(input);
 
   const emailExists = await User.findOne({ email: input.email });
